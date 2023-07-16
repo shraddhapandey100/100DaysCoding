@@ -12,17 +12,17 @@ class BinaryTree {
     Node root;
     
     // Helper function to check if a binary tree is a BST
-    private boolean isBSTUtil(Node node, int left, int right) {
+    private boolean isBSTUtil(Node node, int min, int max) {
         // Base case: an empty tree is considered a BST
         if (node == null)
             return true;
         
         // If the current node violates the BST property, return false
-        if (node.data <= left || node.data >= right)
+        if (node.data <= min || node.data >= max)
             return false;
         
         // Recursively check the left and right subtrees
-        return isBSTUtil(node.left, left, node.data) && isBSTUtil(node.right, node.data, right);
+        return isBSTUtil(node.left, min, node.data) && isBSTUtil(node.right, node.data, max);
     }
     
     // Function to check if a binary tree is a BST
