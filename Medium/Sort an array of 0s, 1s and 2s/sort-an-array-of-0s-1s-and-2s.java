@@ -12,31 +12,50 @@ class Solution
 {
     public static void sort012(int arr[], int n)
     {
-        int count0 =0, count1=0, count2=0;
-        for(int i=0; i<n; i++){
-            if(arr[i] == 0){
-                count0++;
-            }
-            if(arr[i] == 1){
-                count1++;
-            }
-            if(arr[i] == 2){
-                count2++;
-            }
-        }
-        int k=0;
+        // int count0 =0, count1=0, count2=0;
+        // for(int i=0; i<n; i++){
+        //     if(arr[i] == 0){
+        //         count0++;
+        //     }
+        //     if(arr[i] == 1){
+        //         count1++;
+        //     }
+        //     if(arr[i] == 2){
+        //         count2++;
+        //     }
+        // }
+        // int k=0;
         
-        while(count0>0){
-            arr[k++]=0;
-            count0--;
-        }
-        while(count1>0){
-            arr[k++]=1;
-            count1--;
-        }
-        while(count2>0){
-            arr[k++]=2;
-            count2--;
+        // while(count0>0){
+        //     arr[k++]=0;
+        //     count0--;
+        // }
+        // while(count1>0){
+        //     arr[k++]=1;
+        //     count1--;
+        // }
+        // while(count2>0){
+        //     arr[k++]=2;
+        //     count2--;
+        // }
+        int left =0;
+        int mid =0;
+        int right =n-1;
+        while(mid <= right){
+            if(arr[mid] == 0){
+                int temp = arr[left];
+                arr[left] = arr[mid];
+                arr[mid] = temp;
+                left++;
+                mid++;
+            }else if(arr[mid] == 1){
+                mid++;
+            }else{
+                int temp = arr[mid];
+                arr[mid] = arr[right];
+                arr[right] = temp;
+                right--;
+            }
         }
     }
 }
