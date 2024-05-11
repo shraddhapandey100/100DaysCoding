@@ -46,15 +46,39 @@ class GFG {
 
 class Solution {
     public long kthElement( int arr1[], int arr2[], int n, int m, int k) {
-        ArrayList<Integer> list1 = new ArrayList<Integer>();
-        for(int i=0; i<n; i++){
-            list1.add(arr1[i]);
+        int i=0;
+        int j =0;
+        int count =0;
+        while(i <n && j <m){
+            if(arr1[i]< arr2[j]){
+                count++;
+                if(count == k){
+                    return arr1[i];
+                }
+                i++;
+            }else{
+                count++;
+                if(count == k){
+                    return arr2[j];
+                    
+                }
+                j++;
+            }
         }
-        for(int i=0; i<m; i++){
-            list1.add(arr2[i]);
+        while(i< n){
+            count++;
+            if(count ==k){
+               return arr1[i];
+            }
+            i++;
         }
-        Collections.sort(list1);
-        return (long)list1.get(k-1);
-        
+        while(j <m){
+            count++;
+            if(count == k){
+                return arr2[j];
+            }
+            j++;
+        }
+        return -1;
     }
 }
