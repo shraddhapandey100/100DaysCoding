@@ -27,22 +27,24 @@ public class GFG {
 // User function Template for Java
 class Solution {
     public void printArr(int n, int arr[]) {
-        for(int value: arr){
-            System.out.print(value+" ");
+        // code here
+        for(int i=0; i<n; i++){
+            System.out.print(arr[i]+" ");
         }
         System.out.println();
     }
 
     public void setToZero(int n, int arr[]) {
-        Arrays.fill(arr,0);
+        // code here
+        for(int i=0; i<n; i++){
+            arr[i] = 0;
+        }
     }
 
     public void xor1ToN(int n, int arr[]) {
-       if(n>0){
-           arr[0] = arr[0];
-       }
-       for(int i=0; i<n; i++){
-           arr[i] = arr[i]^i;
-       }
+        // code here
+        for(int i=0; i<n; i++){
+            arr[i] = arr[i]^i;
+        }
     }
 }
