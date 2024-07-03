@@ -41,28 +41,20 @@ class Array {
 
 // } Driver Code Ends
 
-
 //User function Template for Java
+class Complete {
 
-            
-
-class Complete{
-    
-   
     // Function for finding maximum and value pair
-    public static int[] Rearrange (int arr[], int n) {
-        int[]ans = new int[n];
-        for(int i=0; i<n; i++){
-            ans[i]= -1;
-        }
-        for(int i=0; i<n; i++){
-            if(arr[i]>=0){
-                int pos = arr[i];
-                ans[pos] = arr[i];
+    public static int[] Rearrange(int arr[], int n) {
+        int[] ans = new int[n];
+        // Initialize the ans array with -1
+        Arrays.fill(ans, -1);
+
+        for (int i = 0; i < n; i++) {
+            if (arr[i] >= 0 && arr[i] < n) {
+                ans[arr[i]] = arr[i];
             }
         }
         return ans;
     }
 }
-
-
