@@ -1,46 +1,37 @@
 //{ Driver Code Starts
-//Initial template for JAVA
+// Initial template for JAVA
 
-import java.util.*;
 import java.io.*;
 import java.lang.*;
+import java.util.*;
 
-class Main
-{
-    public static void main(String args[])
-    {
-        //taking input using class Scanner
-        Scanner sc = new Scanner(System.in);
-        
-        //taking total count of testcases
-        int t = sc.nextInt();
-        
-        
-        
-        while(t-- > 0)
-        {
-            //taking total number of elements
-            int n = sc.nextInt();
-            
-            //taking size of subArrays 
-            int k = sc.nextInt();
-            
-            //Declaring and Intializing an array of size n
-            int arr[] = new int[n];
-            
-            //adding all the elements to the array 
-            for(int i = 0; i <n; i++)
-            {
-                arr[i] =sc.nextInt();
+public class Main {
+    public static void main(String args[]) throws IOException {
+        // taking input using class Scanner
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+
+        while (t-- > 0) {
+            // taking total number of elements
+            int k = Integer.parseInt(br.readLine());
+            String line = br.readLine();
+            String[] tokens = line.split(" ");
+
+            // Create an ArrayList to store the integers
+            ArrayList<Integer> array = new ArrayList<>();
+
+            // Parse the tokens into integers and add to the array
+            for (String token : tokens) {
+                array.add(Integer.parseInt(token));
             }
-            
-            //Calling the method max_of_subarrays of class solve
-            //and storing the result in an ArrayList
-            ArrayList <Integer> res = new Solution().max_of_subarrays(arr, n, k);
-            
-            //printing the elements of the ArrayList
-            for (int i = 0; i < res.size(); i++)
-                System.out.print (res.get (i) + " ");
+
+            int[] arr = new int[array.size()];
+            int idx = 0;
+            for (int i : array) arr[idx++] = i;
+            ArrayList<Integer> res = new Solution().max_of_subarrays(k, arr);
+
+            // printing the elements of the ArrayList
+            for (int i = 0; i < res.size(); i++) System.out.print(res.get(i) + " ");
             System.out.println();
         }
     }
@@ -48,27 +39,44 @@ class Main
 // } Driver Code Ends
 
 
-//User function template for JAVA
+// User function template for JAVA
 
-class Solution
-{
-    //Function to find maximum of each subarray of size k.
-    static ArrayList <Integer> max_of_subarrays(int arr[], int n, int k)
-    {
-        ArrayDeque<Integer>queue = new ArrayDeque<>();
-        ArrayList<Integer>ans=new ArrayList<>();
-        for(int i=0; i<arr.length; i++){
-            while(!queue.isEmpty() && arr[i] > arr[queue.getLast()]){
-                queue.removeLast();
+class Solution {
+    // Function to find the maximum of each subarray of size k.
+    public ArrayList<Integer> max_of_subarrays(int k,int arr[] ) {
+        // Result list to store the maximums.
+        ArrayList<Integer> result = new ArrayList<>();
+        
+        // Base case: if the array is empty or k is 0.
+        if (arr == null || arr.length == 0 || k == 0) {
+            return result;
+        }
+
+        // Deque to store indices of elements in the current window.
+        Deque<Integer> deque = new LinkedList<>();
+
+        // Traverse through the array.
+        for (int i = 0; i < arr.length; i++) {
+            // Remove elements from deque that are out of this window.
+            while (!deque.isEmpty() && deque.peekFirst() < i - k + 1) {
+                deque.pollFirst();
             }
-            queue.addLast(i);
-            if(queue.getFirst() + k == i){
-                queue.removeFirst();
+
+            // Remove elements from deque that are smaller than the current element,
+            // since they will not be needed in the current or future windows.
+            while (!deque.isEmpty() && arr[deque.peekLast()] <= arr[i]) {
+                deque.pollLast();
             }
-            if(i >= k-1){
-                ans.add(arr[queue.getFirst()]);
+
+            // Add current element's index to the deque.
+            deque.offerLast(i);
+
+            // Start adding the maximums to the result once the first window is fully traversed.
+            if (i >= k - 1) {
+                result.add(arr[deque.peekFirst()]);
             }
         }
-        return ans;
+
+        return result;
     }
 }
