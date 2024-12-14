@@ -29,6 +29,8 @@ public class GFG {
             int key = Integer.parseInt(in.readLine().trim());
 
             out.println(new Solution().search(arr, key));
+
+            out.println("~");
         }
         out.close();
     }
@@ -40,25 +42,40 @@ public class GFG {
 
 class Solution {
     int search(int[] arr, int key) {
-        int l = 0;
-        int h = arr.length - 1;
-        while (l <= h) {
-            int mid = l + (h - l) / 2;
-            if (arr[mid] == key) return mid;
-            if (arr[l] <= arr[mid]) {
-                if (arr[l] <= key && key < arr[mid]) {
-                    h = mid - 1;
+        // Initialize pointers for binary search
+        int low = 0;
+        int high = arr.length - 1;
+
+        // Perform binary search
+        while (low <= high) {
+            int mid = low + (high - low) / 2; // To avoid overflow in case of large indices
+
+            // Check if mid is the key
+            if (arr[mid] == key) {
+                return mid;
+            }
+
+            // Check if the left half is sorted
+            if (arr[mid] >= arr[low]) {
+                // If the key lies in the sorted left half
+                if (key >= arr[low] && key < arr[mid]) {
+                    high = mid - 1;
                 } else {
-                    l = mid + 1;
+                    low = mid + 1;
                 }
-            } else {
-                if (arr[mid] < key && key <= arr[h]) {
-                    l = mid + 1;
+            }
+            // Otherwise, the right half must be sorted
+            else {
+                // If the key lies in the sorted right half
+                if (key > arr[mid] && key <= arr[high]) {
+                    low = mid + 1;
                 } else {
-                    h = mid - 1;
+                    high = mid - 1;
                 }
             }
         }
+
+        // If the key is not found
         return -1;
     }
 }
