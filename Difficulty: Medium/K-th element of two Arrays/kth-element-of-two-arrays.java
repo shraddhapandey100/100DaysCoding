@@ -13,19 +13,20 @@ class GFG {
             int k = Integer.parseInt(br.readLine().trim());
 
             String[] line1 = br.readLine().trim().split(" ");
-            int[] arr1 = new int[line1.length];
+            int[] a = new int[line1.length];
             for (int i = 0; i < line1.length; i++) {
-                arr1[i] = Integer.parseInt(line1[i]);
+                a[i] = Integer.parseInt(line1[i]);
             }
 
             String[] line2 = br.readLine().trim().split(" ");
-            int[] arr2 = new int[line2.length];
+            int[] b = new int[line2.length];
             for (int i = 0; i < line2.length; i++) {
-                arr2[i] = Integer.parseInt(line2[i]);
+                b[i] = Integer.parseInt(line2[i]);
             }
 
             Solution ob = new Solution();
-            System.out.println(ob.kthElement(k, arr1, arr2));
+            System.out.println(ob.kthElement(a, b, k));
+            System.out.println("~");
         }
     }
 }
@@ -36,22 +37,47 @@ class GFG {
 // User function Template for Java
 
 class Solution {
-    public long kthElement(int k, int arr1[], int arr2[]) {
+    public int kthElement(int a[], int b[], int k) {
         // code here
-        int n = arr1.length + arr2.length;
-        int []a = new int[n];
-        ArrayList<Integer> m = new ArrayList<>();
-        for(int i=0; i<arr1.length; i++){
-            m.add(arr1[i]);
+         int i=0, j=0, count=0, kthElement=0;
+        while(i<a.length && j<b.length)
+        {
+            if(a[i]>=b[j])
+            {
+                kthElement=b[j];
+                j++;
+            }
+            else
+            {
+                kthElement=a[i];
+                i++;
+            }
+            count++;
+            if(count==k)
+            {
+                return kthElement;
+            }
         }
-        for(int i=0; i<arr2.length; i++){
-            m.add(arr2[i]);
+        while(i<a.length)
+        {
+            kthElement=a[i];
+            i++;
+            count++;
+            if(count==k)
+            {
+                return kthElement;
+            }
         }
-        Collections.sort(m);
-        for(int i=0; i<m.size(); i++){
-            a[i] = m.get(i);
+        while(j<b.length)
+        {
+            kthElement=b[j];
+            j++;
+            count++;
+            if(count==k)
+            {
+                return kthElement;
+            }
         }
-        long r = a[k-1];
-        return r;
+        return -1;
     }
 }
