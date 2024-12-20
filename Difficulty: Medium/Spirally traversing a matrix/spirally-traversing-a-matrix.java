@@ -20,6 +20,8 @@ class GFG {
             ArrayList<Integer> ans = ob.spirallyTraverse(matrix);
             for (Integer val : ans) System.out.print(val + " ");
             System.out.println();
+
+            System.out.println("~");
         }
     }
 }
@@ -27,47 +29,34 @@ class GFG {
 
 
 class Solution {
-    // Function to return a list of integers denoting spiral traversal of matrix.
     public ArrayList<Integer> spirallyTraverse(int matrix[][]) {
-        // code here
-        int r = matrix.length;
-        int c = matrix[0].length;
-        ArrayList<Integer> ans = new ArrayList<>();
-        if(c ==1){
-            for(int i=0; i<r; i++){
-                ans.add(matrix[i][0]);
-            }
-            return ans;
-        }
-        if(r ==1){
-            for(int i=0; i<c; i++){
-                ans.add(matrix[0][i]);
-            }
-            return ans;
-        }
-        int top =0, right = c-1, left =0, bottom = r-1;
-        while((top <= bottom) && (left <= right)){
-            for(int i= left; i<=right; i++){
-                ans.add(matrix[top][i]);
+        int top = 0, bottom = matrix.length - 1;
+        int left = 0, right = matrix[0].length - 1;
+        ArrayList<Integer> result = new ArrayList<>();
+
+        while (top <= bottom && left <= right) {
+            for (int col = left; col <= right; col++) {
+                result.add(matrix[top][col]);
             }
             top++;
-            for(int i= top; i<=bottom; i++){
-                ans.add(matrix[i][right]);
+            for (int row = top; row <= bottom; row++) {
+                result.add(matrix[row][right]);
             }
             right--;
-            if(top <= bottom){
-                for(int i = right; i>= left ; i--){
-                    ans.add(matrix[bottom][i]);
+            if (top <= bottom) {
+                for (int col = right; col >= left; col--) {
+                    result.add(matrix[bottom][col]);
                 }
                 bottom--;
             }
-            if(left <= right){
-                for(int i= bottom; i>=top; i--){
-                    ans.add(matrix[i][left]);
+            if (left <= right) {
+                for (int row = bottom; row >= top; row--) {
+                    result.add(matrix[row][left]);
                 }
                 left++;
             }
+            
         }
-        return ans;
+        return result;
     }
 }
